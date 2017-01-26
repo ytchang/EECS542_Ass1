@@ -1,4 +1,4 @@
-function [ D,min_D ,min_loc] = min_cost_leaf_dp(k,loc_parent, leaf_part,seq )
+function [ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,loc_parent, leaf_part,seq )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 % l_leaf_initial = [0,0,0,0];
@@ -17,7 +17,7 @@ for x_i = 1:x_buckets
     for y_i = 1:y_buckets
         for s_i=1:scale_buckets
             for theta_i=1:theta_buckets
-                D(x_i,y_i,s_i,theta_i) = match_energy_cost([xs(x_i),ys(y_i),scales(s_i),thetas(theta_i)],leaf_part,seq);
+                D(x_i,y_i,s_i,theta_i) = match_energy_cost([xs(x_i),ys(y_i),scales(s_i),thetas(theta_i)],leaf_part,seq,lF);
                 if D(x_i,y_i,s_i,theta_i) < min_D
                     min_index = [x_i,y_i,s_i,theta_i];
                     min_D = D(x_i,y_i,s_i,theta_i);
