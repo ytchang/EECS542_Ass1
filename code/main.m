@@ -15,7 +15,11 @@ hdl = DrawStickman(lF(image_seq).stickmen.coor, img);
 %% run dp func
 tic
 k = [];
-loc_parent = [];
-[ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,loc_parent,1,image_seq );
+loc_parent = [198,292,1,1];
+[ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,loc_parent,1,6,image_seq );
 display(min_loc)
 toc
+figure
+RGB = insertShape(img,'circle',[loc_parent(1) loc_parent(2) 35],'Color','yellow','LineWidth',5);
+RGB = insertShape(RGB,'circle',[min_loc(1) min_loc(2) 35],'Color','blue','LineWidth',5);
+imshow(RGB);
