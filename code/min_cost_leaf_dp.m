@@ -1,8 +1,7 @@
 function [ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,l_parent,part_parent, part,seq )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-% l_leaf_initial = [0,0,0,0];
-% l_leaf = l_leaf_initial;
+
 image_height = 720; image_width = 405; x_buckets = 20; y_buckets = 20;
 scale_buckets = 5; theta_buckets = 10;
 xs = linspace(1,image_width,x_buckets);
@@ -11,14 +10,9 @@ scales = linspace(0.1,5,scale_buckets);
 thetas = linspace(-pi/2,pi/2,theta_buckets);
 
 D = (-1)*ones(x_buckets,y_buckets,scale_buckets,theta_buckets);
-% initial loc configuration
-% min_x_buk = 0;
-% min_y_buk = 0;
-% min_theta_buk = 0;
-% min_s_buk = 0;
-% min_buk = [0,0,0,0];
-%% 
 
+%% 
+% initial loc (bucket) configuration
 cur_buk = struct('x',0,'y',0,'theta',0,'s',0);
 min_D = Inf;
 new_buk = struct('x',2,'y',2,'theta',2,'s',2); %dummy initialization
