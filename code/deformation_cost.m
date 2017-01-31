@@ -14,8 +14,12 @@ function cost = deformation_cost( Li,p_i,Lj,p_j )
         p_j=temp;
     end
    %% get coords(p1 upper, p2 lower)
-    [p1_i,p2_i]=get_coord_from_L(Li,model_len(p_i));
-    [p1_j,p2_j]=get_coord_from_L(Lj,model_len(p_j));
+    A=get_coord_from_L(Li,model_len,p_i);
+    B=get_coord_from_L(Lj,model_len,p_j);
+    p1_i=A(1:2);
+    p2_i=A(3:4);
+    p1_j=B(1:2);
+    p2_j=B(3:4);
     
     %% get joint location
     shoulderWidth=90;
