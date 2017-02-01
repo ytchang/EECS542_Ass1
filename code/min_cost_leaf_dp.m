@@ -40,7 +40,7 @@ while ~isequal(new_buk,cur_buk)
 %         && cur_buk.y<y_buckets-1 && cur_buk.theta<theta_buckets-1 && cur_buk.s<scale_buckets-1
     
     cur_buk = new_buk;
-    display(cur_buk)
+    %display(cur_buk);
     [D_new_val, new_buk] = single_iter_D(cur_buk);
     if D_new_val < min_D
         min_D = D_new_val;
@@ -63,7 +63,7 @@ min_loc_all(:,part) = min_loc';
             match_cost = match_energy_cost(cur_loc,part,seq,lF);
             deform_cost = 0; % for torso, deform cost = 0
            
-            if part == 2 || part == 4 || part == 6
+            if part == 2 || part == 3 || part == 6
                 % for not torso (root)
                 deform_cost = deformation_cost( l_parent,part_parent,cur_loc,part );
             end
@@ -79,9 +79,9 @@ min_loc_all(:,part) = min_loc';
 %             display(Bc)
             D(cur_bucket.x,cur_bucket.y,cur_bucket.theta,cur_bucket.s)...
                 = match_cost + deform_cost + Bc;
-%                 = match_cost + Bc;
+%               = match_cost + Bc;
 %                 = Bc
-                
+    
         end
         D_val = D(cur_bucket.x,cur_bucket.y,cur_bucket.theta,cur_bucket.s);
     end

@@ -2,7 +2,7 @@ function cost = deformation_cost( Li,p_i,Lj,p_j )
     % L --> [x, y, theta, scale]  end points of the query stick  
     % pi,pj is the query part, 1=torso, 2=left upper arm, 3=right upper arm, 4=left lower arm, 5=right lower arm, 6= head
     % w is weight for x,y,theta,scale. x,y here refers to joint distance
-    w=[50,50,1,50];
+    w=[50,50,0,30];
     model_len=[160, 95,95,65,65,60];
     %% make sure pi<pj
     if p_i>p_j
@@ -16,34 +16,44 @@ function cost = deformation_cost( Li,p_i,Lj,p_j )
    %% get coords(p1 upper, p2 lower)
     A=get_coord_from_L(Li,model_len,p_i);
     B=get_coord_from_L(Lj,model_len,p_j);
-    p1_i=A(1:2);
-    p2_i=A(3:4);
-    p1_j=B(1:2);
-    p2_j=B(3:4);
+    if A(2)>A(4)
+        p1_i=A(1:2);
+        p2_i=A(3:4);
+    else
+        p1_i=A(3:4);
+        p2_i=A(1:2);   
+    end
     
+    if B(2)>B(4)
+        p1_j=B(1:2);
+        p2_j=B(3:4);
+    else
+        p2_j=B(1:2);
+        p1_j=B(3:4);        
+    end
     %% get joint location
-    shoulderWidth=90;
+    shoulderWidth=50;
     if p_i==1&&p_j==6
+        joint_i=p2_i;
+        joint_j=p1_j;
+        ideal_theta=0;
+    elseif p_i==1&&p_j==2
+        joint_i=p2_i;
+        joint_i(1)=joint_i(1)-shoulderWidth/2;
+        joint_j=p2_j;
+        ideal_theta=0;
+    elseif p_i==1&&p_j==3
+        joint_i=p2_i;
+        joint_i(1)=joint_i(1)+shoulderWidth/2;
+        joint_j=p2_j;
+        ideal_theta=0;
+    elseif p_i==2&&p_j==4
         joint_i=p1_i;
         joint_j=p2_j;
         ideal_theta=0;
-    elseif p_i==1&&p_j==2
+    elseif p_i==3&&p_j==5
         joint_i=p1_i;
-        joint_i(1)=joint_i(1)-shoulderWidth/2;
-        joint_j=p1_j;
-        ideal_theta=0;
-    elseif p_i==1&&p_j==4
-        joint_i=p1_i;
-        joint_i(1)=joint_i(1)+shoulderWidth/2
-        joint_j=p1_j
-        ideal_theta=0;
-    elseif p_i==2&&p_j==3
-        joint_i=p2_i;
-        joint_j=p1_j;
-        ideal_theta=0;
-    elseif p_i==4&&p_j==5
-        joint_i=p2_i;
-        joint_j=p1_j; 
+        joint_j=p2_j; 
         ideal_theta=0;
     end
    %%

@@ -26,13 +26,22 @@ loc_parent = [403,270,1,root_s];
 
 % test by torso
 [ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,[],0,1,image_seq );
-display(min_loc)
+%display(min_loc)
+lF(image_seq).stickmen.coor
+min_coord=zeros(4,6);
+for i=1:6
+   min_coord(:,i)=transpose(get_coord_from_L(transpose(min_loc(:,i)),model_len,i));
+end
+min_coord
 toc
+%%
 figure
-% need computer vision toolbox to draw circle on img in the code below
-RGB = insertShape(img,'circle',[min_loc(1,1) min_loc(2,1) 10],'Color','blue','LineWidth',5);
-RGB = insertShape(RGB,'circle',[min_loc(1,2) min_loc(2,2) 10],'Color','red','LineWidth',5);
-RGB = insertShape(RGB,'circle',[min_loc(1,3) min_loc(2,3) 10],'Color','green','LineWidth',5);
-RGB = insertShape(RGB,'circle',[min_loc(1,6) min_loc(2,6) 10],'Color','cyan','LineWidth',5);
 
-imshow(RGB);
+hd2 = DrawStickman(min_coord, img); 
+% need computer vision toolbox to draw circle on img in the code below
+% RGB = insertShape(img,'circle',[min_loc(1,1) min_loc(2,1) 10],'Color','blue','LineWidth',5);
+% RGB = insertShape(RGB,'circle',[min_loc(1,2) min_loc(2,2) 10],'Color','red','LineWidth',5);
+% RGB = insertShape(RGB,'circle',[min_loc(1,3) min_loc(2,3) 10],'Color','green','LineWidth',5);
+% RGB = insertShape(RGB,'circle',[min_loc(1,6) min_loc(2,6) 10],'Color','cyan','LineWidth',5);
+
+%imshow(RGB);
