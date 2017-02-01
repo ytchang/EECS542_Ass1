@@ -3,10 +3,10 @@ function coords = get_coord_from_L( Li,model_len,part )
 %   Detailed explanation goes here
     part_len=model_len(part);
     if part==1 | part ==6
-        if Li(3)<0
-            Li(3)=Li(3)+pi/2;
-        else
+        if Li(3)<=pi/2
             Li(3)=Li(3)-pi/2;
+        else
+            Li(3)=Li(3)+pi/2;
         end
     end
     halfLen_i=Li(4)*part_len/2;

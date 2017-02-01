@@ -2,7 +2,7 @@ function cost = deformation_cost( Li,p_i,Lj,p_j )
     % L --> [x, y, theta, scale]  end points of the query stick  
     % pi,pj is the query part, 1=torso, 2=left upper arm, 3=right upper arm, 4=left lower arm, 5=right lower arm, 6= head
     % w is weight for x,y,theta,scale. x,y here refers to joint distance
-    w=[50,50,0,30];
+    w=[1,1,0.01,0.1];
     model_len=[160, 95,95,65,65,60];
     %% make sure pi<pj
     if p_i>p_j

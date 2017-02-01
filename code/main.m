@@ -6,7 +6,7 @@ close all;
 %% read img and txt file
 
 % change here for different images
-image_seq = 1;
+image_seq = 5;
 lF = ReadStickmenAnnotationTxt('../data/buffy_s5e2_sticks.txt'); 
 frames = [lF.frame];
 img_frame = frames(image_seq);

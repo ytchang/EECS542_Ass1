@@ -78,8 +78,7 @@ min_loc_all(:,part) = min_loc';
             end
 %             display(Bc)
             D(cur_bucket.x,cur_bucket.y,cur_bucket.theta,cur_bucket.s)...
-                = match_cost + deform_cost + Bc;
-
+                = 1*match_cost + 3*deform_cost + Bc;
         end
         D_val = D(cur_bucket.x,cur_bucket.y,cur_bucket.theta,cur_bucket.s);
     end
