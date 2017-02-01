@@ -11,7 +11,7 @@ function [ D,min_D ,min_loc_all] = min_cost_leaf_dp(lF,k,l_parent,part_parent, p
 % (each col is for each part, e.g. min_loc_all(:,1) is location for torso)
 
 def_buk = [1 1 1 1];
-image_height = 720; image_width = 405; x_buckets = 30; y_buckets = 30;
+image_height = 720; image_width = 405; x_buckets = 50; y_buckets = 50;
 theta_buckets = 20; scale_buckets = 10; 
 if nargin == 7
     def_buk = [floor(def_loc(1)/(image_height/x_buckets)) floor(def_loc(2)/(image_width/y_buckets))...
@@ -21,7 +21,7 @@ if nargin == 7
 end
 xs = linspace(1,image_height,x_buckets);
 ys = linspace(1,image_width,y_buckets);
-thetas = linspace(0,pi/2,theta_buckets);
+thetas = linspace(-pi/2,pi/2,theta_buckets);
 scales = linspace(1,5,scale_buckets);
 D = (-1)*ones(x_buckets,y_buckets,theta_buckets,scale_buckets);
 
@@ -95,25 +95,25 @@ min_loc_all(:,part) = min_loc';
         x_incr = Inf;
         if cur_buk.x >= 1 && cur_buk.x < x_buckets
             cur_buk.x = cur_buk.x+1;
-            x_incr = init_D(cur_buk);
+            x_incr = init_D(cur_buk) + k.x;
             cur_buk.x = cur_buk.x-1;
         end
         y_incr = Inf;
         if cur_buk.y >= 1 && cur_buk.y < y_buckets
             cur_buk.y = cur_buk.y+1;
-            y_incr = init_D(cur_buk);
+            y_incr = init_D(cur_buk) + k.y;
             cur_buk.y = cur_buk.y-1;
         end
         theta_incr = Inf;
         if cur_buk.theta >= 1 && cur_buk.theta+1 < theta_buckets
             cur_buk.theta = cur_buk.theta+1;
-            theta_incr = init_D(cur_buk);
+            theta_incr = init_D(cur_buk) + k.theta;
             cur_buk.theta = cur_buk.theta-1;
         end
         s_incr = Inf;
         if cur_buk.s >= 1 && cur_buk.s < scale_buckets
             cur_buk.s = cur_buk.s+1;
-            s_incr = init_D(cur_buk);
+            s_incr = init_D(cur_buk) + k.s;
             cur_buk.s = cur_buk.s-1;
         end
 %         update min_val and new_buk

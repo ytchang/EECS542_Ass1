@@ -25,14 +25,16 @@ loc_parent = [403,270,1,root_s];
 % [ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,loc_parent,1,6,image_seq,[275 143 1 1.5] );
 
 % test by torso
+k = struct('x',1,'y',1,'theta',1,'s',10000);
 [ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,[],0,1,image_seq );
 %display(min_loc)
 lF(image_seq).stickmen.coor
 min_coord=zeros(4,6);
+model_len=[160, 95,95,65,65,60];
 for i=1:6
    min_coord(:,i)=transpose(get_coord_from_L(transpose(min_loc(:,i)),model_len,i));
 end
-min_coord
+
 toc
 %%
 figure
