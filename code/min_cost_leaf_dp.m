@@ -1,4 +1,4 @@
-function [ D,min_D ,min_loc_all] = min_cost_leaf_dp(lF,k,l_parent,part_parent, part,seq,def_loc )
+function [ D,min_D ,min_loc_all] = min_cost_leaf_dp(lF,k,l_parent,part_parent, part,seq,min_loc_all,def_loc )
 %min_cost_leaf_dp compute min cost of given parts by dynamic programming
 % lF: stickman coor info,
 % k: not used yet
@@ -13,7 +13,7 @@ function [ D,min_D ,min_loc_all] = min_cost_leaf_dp(lF,k,l_parent,part_parent, p
 def_buk = [1 1 1 1];
 image_height = 720; image_width = 405; x_buckets = 10; y_buckets = 10;
 theta_buckets = 18; scale_buckets = 5; 
-if nargin == 7
+if nargin == 8
     def_buk = [floor(def_loc(1)/(image_height/x_buckets)) floor(def_loc(2)/(image_width/y_buckets))...
         1 1];
     
@@ -35,6 +35,9 @@ min_D = Inf;
 new_buk = struct('x',def_buk(1),'y',def_buk(2),'theta',def_buk(3),'s',def_buk(4)); % dummy initialization
 % need more robust teminating rule to prevent infinite loop
 % or even not looping at all?
+% if ~exist(min_loc_all,'var')
+%     min_loc_all = zeros(4,6);
+% end
 while ~isequal(new_buk,cur_buk) 
 %     && cur_buk.x<x_buckets-1 ...
 %         && cur_buk.y<y_buckets-1 && cur_buk.theta<theta_buckets-1 && cur_buk.s<scale_buckets-1
@@ -70,21 +73,22 @@ min_loc_all(:,part) = min_loc';
             Bc = 0;
             if part == 1
                % for torso
+               display(cur_bucket)
                for i=[2,3,6]
-                   [ D_tmp,min_D_tmp ,min_loc_tmp] = min_cost_leaf_dp(lF,k,cur_loc,1, i,seq );
+                   [ D_tmp,min_D_tmp ,min_loc_all] = min_cost_leaf_dp(lF,k,cur_loc,1, i,seq,min_loc_all );
                    Bc = Bc + min_D_tmp;
-                   min_loc_all(:,i) = min_loc_tmp(:,i);
+                   
                end
             elseif part==2
                    i=4;
-                   [ D_tmp,min_D_tmp ,min_loc_tmp] = min_cost_leaf_dp(lF,k,cur_loc,2, i,seq );
+                   [ D_tmp,min_D_tmp ,min_loc_all] = min_cost_leaf_dp(lF,k,cur_loc,2, i,seq,min_loc_all );
                    Bc = Bc + min_D_tmp;
-                   min_loc_all(:,i) = min_loc_tmp(:,i);    
+                       
             elseif part==3
                    i=5;
-                   [ D_tmp,min_D_tmp ,min_loc_tmp] = min_cost_leaf_dp(lF,k,cur_loc,3, i,seq );
+                   [ D_tmp,min_D_tmp ,min_loc_all] = min_cost_leaf_dp(lF,k,cur_loc,3, i,seq,min_loc_all );
                    Bc = Bc + min_D_tmp;
-                   min_loc_all(:,i) = min_loc_tmp(:,i);                
+                          
             end
 %             display(Bc)
             D(cur_bucket.x,cur_bucket.y,cur_bucket.theta,cur_bucket.s)...

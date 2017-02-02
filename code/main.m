@@ -26,7 +26,8 @@ loc_parent = [403,270,1,root_s];
 
 % test by torso
 k = struct('x',1,'y',1,'theta',1,'s',10000);
-[ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,[],0,1,image_seq );
+min_loc_all = zeros(4,6);
+[ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,[],0,1,image_seq,min_loc_all );
 %display(min_loc)
 lF(image_seq).stickmen.coor
 min_coord=zeros(4,6);
@@ -36,6 +37,7 @@ for i=1:6
 end
 
 toc
+display(min_coord)
 %%
 figure
 
