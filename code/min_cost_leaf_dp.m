@@ -11,8 +11,8 @@ function [ D,min_D ,min_loc_all] = min_cost_leaf_dp(lF,k,l_parent,part_parent, p
 % (each col is for each part, e.g. min_loc_all(:,1) is location for torso)
 
 def_buk = [1 1 1 1];
-image_height = 720; image_width = 405; x_buckets = 10; y_buckets = 10;
-theta_buckets = 18; scale_buckets = 5; 
+image_height = 720; image_width = 405; x_buckets = 25; y_buckets = 15;
+theta_buckets = 20; scale_buckets = 10; 
 if nargin == 8
     def_buk = [floor(def_loc(1)/(image_height/x_buckets)) floor(def_loc(2)/(image_width/y_buckets))...
         1 1];
@@ -73,7 +73,7 @@ min_loc_all(:,part) = min_loc';
             Bc = 0;
             if part == 1
                % for torso
-               display(cur_bucket)
+               %display(cur_bucket)
                for i=[2,3,6]
                    [ D_tmp,min_D_tmp ,min_loc_all] = min_cost_leaf_dp(lF,k,cur_loc,1, i,seq,min_loc_all );
                    Bc = Bc + min_D_tmp;

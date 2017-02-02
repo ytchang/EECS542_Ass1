@@ -13,9 +13,9 @@ function cost = deformation_cost( Li,p_i,Lj,p_j )
         p_i=p_j;
         p_j=temp;
     end
-%     if p_i==1
-%         w=[1,1,0.1,0.1];
-%     end
+    if p_i==1
+        w=[1,1,0.1,0.1];
+    end
    %% get coords(p1 upper, p2 lower)
     A=get_coord_from_L(Li,model_len,p_i);
     B=get_coord_from_L(Lj,model_len,p_j);
