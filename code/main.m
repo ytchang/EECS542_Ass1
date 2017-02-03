@@ -25,7 +25,7 @@ loc_parent = [403,270,1,root_s];
 % [ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,loc_parent,1,6,image_seq,[275 143 1 1.5] );
 
 % test by torso
-k = struct('x',1,'y',1,'theta',1,'s',10000);
+k = struct('x',1,'y',1,'theta',1,'s',1);
 min_loc_all = zeros(4,6);
 [ D,min_D ,min_loc] = min_cost_leaf_dp(lF,k,[],0,1,image_seq,min_loc_all );
 %display(min_loc)

@@ -73,7 +73,7 @@ min_loc_all(:,part) = min_loc';
             Bc = 0;
             if part == 1
                % for torso
-               %display(cur_bucket)
+               display(cur_bucket)
                for i=[2,3,6]
                    [ D_tmp,min_D_tmp ,min_loc_all] = min_cost_leaf_dp(lF,k,cur_loc,1, i,seq,min_loc_all );
                    Bc = Bc + min_D_tmp;
